@@ -1,5 +1,9 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/Egomet.Api/Egomet.Api.csproj" />
+    <Project Path="src/Egomet.Application/Egomet.Application.csproj" />
+    <Project Path="src/Egomet.Common/Egomet.Common.csproj" />
+    <Project Path="src/Egomet.Core/Egomet.Core.csproj" />
+    <Project Path="src/Egomet.Infrastructure/Egomet.Infrastructure.csproj" />
   </Folder>
 </Solution>

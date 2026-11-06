@@ -1,14 +1,17 @@
+
+using System;
+using Egomet.Common.Exceptions;
+using Egomet.Infrastructure.Settings;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOpenApi();
+var settings = builder.Configuration
+    .GetSection(nameof(AppSettings))
+    .Get<AppSettings>()
+    ?? throw new InfrastructureException($"Missing {nameof(AppSettings)}.");
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
-app.UseHttpsRedirection();
+app.MapGet("/", () => $"Name: {settings.Name}\nVersion: {settings.Version}");
 
 app.Run();

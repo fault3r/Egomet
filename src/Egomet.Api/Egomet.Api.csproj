@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.14" />
+    <ProjectReference Include="../Egomet.Common/Egomet.Common.csproj" />
+    <ProjectReference Include="../Egomet.Infrastructure/Egomet.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
