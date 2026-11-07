@@ -5,6 +5,5 @@
     <Project Path="src/Egomet.Common/Egomet.Common.csproj" />
     <Project Path="src/Egomet.Core/Egomet.Core.csproj" />
     <Project Path="src/Egomet.Infrastructure/Egomet.Infrastructure.csproj" />
-    <Project Path="src/Egomet.Web/Egomet.Web.csproj" />
   </Folder>
 </Solution>
