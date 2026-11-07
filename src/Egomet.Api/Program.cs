@@ -1,7 +1,7 @@
 
 using System;
-using Egomet.Common.Exceptions;
 using Egomet.Infrastructure.Settings;
+using Egomet.Infrastructure.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
