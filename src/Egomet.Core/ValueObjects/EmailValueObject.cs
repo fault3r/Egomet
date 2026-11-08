@@ -9,23 +9,22 @@ public sealed class EmailValueObject : ValueObject<EmailValueObject>
 {
     public string Value { get; }
 
+    private static readonly Regex EmailRegex = new(
+        @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
+        RegexOptions.CultureInvariant | RegexOptions.Compiled
+    );
+
     private EmailValueObject(string value)
     {
-        if (string.IsNullOrWhiteSpace(value))
-            throw new ArgumentNullException(value);
+        ArgumentNullException.ThrowIfNull(value);
 
         value = value.Trim();
 
-        if (!IsValid(value))
-            throw new InvalidOperationException(value);
+        if (value.Length > 254 || !IsValid(value))
+            throw new FormatException("Invalid email address.");
 
         Value = Normalize(value);
     }
-
-    private static readonly Regex EmailRegex = new(
-        pattern: @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
-        options: RegexOptions.CultureInvariant | RegexOptions.Compiled
-    );
 
     private static bool IsValid(string value)
         => EmailRegex.IsMatch(value);
@@ -33,8 +32,9 @@ public sealed class EmailValueObject : ValueObject<EmailValueObject>
     private static string Normalize(string value)
     {
         var atIndex = value.IndexOf('@');
+
         var local = value[..atIndex];
-        var domain = value[++atIndex..];
+        var domain = value[(atIndex + 1)..];
 
         return $"{local}@{domain.ToLowerInvariant()}";
     }
@@ -42,16 +42,20 @@ public sealed class EmailValueObject : ValueObject<EmailValueObject>
     public static EmailValueObject Parse(string value)
         => new(value);
 
-    public static bool TryParse(string value, out EmailValueObject? email)
+    public static bool TryParse(string? value, out EmailValueObject? email)
     {
+        email = null;
+
+        if (string.IsNullOrWhiteSpace(value))
+            return false;
+
         try
         {
             email = Parse(value);
             return true;
         }
-        catch
+        catch (FormatException)
         {
-            email = null;
             return false;
         }
     }
@@ -65,8 +69,10 @@ public sealed class EmailValueObject : ValueObject<EmailValueObject>
     public static explicit operator EmailValueObject(string value)
         => Parse(value);
 
-    protected override IEnumerable<object> GetEqualityComponents()
+    protected override IEnumerable<object?> GetEqualityComponents()
     {
         yield return Value;
     }
 }
+
+// 🗹 Done

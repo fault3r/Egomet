@@ -10,7 +10,7 @@ public abstract class AggregateRoot<T, TId>(TId id) : Entity<T, TId>(id), IAggre
     private readonly List<IDomainEvent> events = [];
 
     public IReadOnlyCollection<IDomainEvent> Events
-        => [..events];
+        => [.. events];
 
     protected void RaiseEvent(IDomainEvent @event)
     {
@@ -25,3 +25,5 @@ public abstract class AggregateRoot<T, TId>(TId id) : Entity<T, TId>(id), IAggre
     public override string ToString()
         => $"{GetType().Name}:{base.ToString()}";
 }
+
+// 🗹 Done

@@ -4,10 +4,17 @@ using Egomet.Core.Interfaces;
 
 namespace Egomet.Core.Abstraction;
 
-public abstract class Entity<T, TId>(TId id) : IEntity<TId>, IEquatable<T>
+public abstract class Entity<T, TId> : IEntity<TId>, IEquatable<T>
     where T : Entity<T, TId>
 {
-    public TId Id { get; } = id;
+    public TId Id { get; }
+
+    public Entity(TId id)
+    {
+        ArgumentNullException.ThrowIfNull(id);
+
+        Id = id;
+    }
 
     public override string ToString()
         => $"{Id}";
@@ -43,3 +50,5 @@ public abstract class Entity<T, TId>(TId id) : IEntity<TId>, IEquatable<T>
     public static bool operator !=(Entity<T, TId>? left, Entity<T, TId>? right)
         => !(left == right);
 }
+
+// 🗹 Done

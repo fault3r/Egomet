@@ -48,3 +48,5 @@ public abstract class ValueObject<T> : IValueObject, IEquatable<T>
     public static bool operator !=(ValueObject<T>? left, ValueObject<T>? right)
         => !(left == right);
 }
+
+// 🗹 Done
