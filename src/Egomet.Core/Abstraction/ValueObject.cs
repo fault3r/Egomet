@@ -7,7 +7,7 @@ namespace Egomet.Core.Abstraction;
 public abstract class ValueObject<T> : IValueObject, IEquatable<T>
     where T : ValueObject<T>
 {
-    public abstract IEnumerable<object?> GetEqualityComponents();
+    protected abstract IEnumerable<object?> GetEqualityComponents();
 
     public override bool Equals(object? obj)
         => obj is T other && Equals(other);
