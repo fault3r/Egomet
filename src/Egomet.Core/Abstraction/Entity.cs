@@ -9,7 +9,8 @@ public abstract class Entity<T, TId>(TId id) : IEntity<TId>, IEquatable<T>
 {
     public TId Id { get; } = id;
 
-    public override string ToString() => Id?.ToString() ?? string.Empty;
+    public override string ToString()
+        => $"{Id}";
 
     public override bool Equals(object? obj)
         => obj is T other && Equals(other);
