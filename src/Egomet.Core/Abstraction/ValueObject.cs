@@ -49,4 +49,3 @@ public abstract class ValueObject<T> : IValueObject, IEquatable<T>
         => !(left == right);
 }
 
-// 🗹 Done

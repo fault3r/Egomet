@@ -75,4 +75,3 @@ public sealed class EmailValueObject : ValueObject<EmailValueObject>
     }
 }
 
-// 🗹 Done

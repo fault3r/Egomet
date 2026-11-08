@@ -51,4 +51,3 @@ public abstract class Entity<T, TId> : IEntity<TId>, IEquatable<T>
         => !(left == right);
 }
 
-// 🗹 Done

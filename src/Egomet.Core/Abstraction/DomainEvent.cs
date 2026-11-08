@@ -19,4 +19,3 @@ public abstract record DomainEvent : IDomainEvent
         => $"[{OccurredOn:O}] {GetType().Name} (EventId={EventId})";
 }
 
-// 🗹 Done

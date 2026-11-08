@@ -6,4 +6,7 @@
     <Project Path="src/Egomet.Core/Egomet.Core.csproj" />
     <Project Path="src/Egomet.Infrastructure/Egomet.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/JIT/JIT.csproj" />
+  </Folder>
 </Solution>

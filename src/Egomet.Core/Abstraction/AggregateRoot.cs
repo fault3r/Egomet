@@ -26,4 +26,3 @@ public abstract class AggregateRoot<T, TId>(TId id) : Entity<T, TId>(id), IAggre
         => $"{GetType().Name}:{base.ToString()}";
 }
 
-// 🗹 Done
