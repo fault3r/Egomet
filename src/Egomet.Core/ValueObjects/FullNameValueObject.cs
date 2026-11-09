@@ -29,7 +29,7 @@ public sealed class FullNameValueObject : ValueObject<FullNameValueObject>
             .Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
         if (parts.Length < 2)
-            throw new FormatException("Fullname must contain at least two parts.");
+            throw new FormatException("Full name must contain at least two parts.");
 
         FirstName = parts[0];
         LastName = string.Join(' ', parts.Skip(1));

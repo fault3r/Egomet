@@ -45,18 +45,9 @@ public sealed class UserAggregate : AggregateRoot<UserAggregate, IdentityValueOb
         RoleValueObject role,
         StatusValueObject status)
     {
-        ArgumentNullException.ThrowIfNull(id);
+        var user = new UserAggregate(id, email, passwordHash, fullName, role, status);
 
-        var user = new UserAggregate(
-            id,
-            email,
-            passwordHash,
-            fullName,
-            role,
-            status);
-
-        user.RaiseEvent(
-            new UserRegisteredEvent(user.Id, user.Email, user.FullName));
+        user.RaiseEvent(new UserRegisteredEvent(user.Id, user.Email, user.FullName));
 
         return user;
     }
@@ -104,18 +95,8 @@ public sealed class UserAggregate : AggregateRoot<UserAggregate, IdentityValueOb
 
         RaiseEvent(new UserRoleChangedEvent(Id, Email, Role));
     }
-
-    public void Lock()
-    {
-        if (Status.IsLocked)
-            return;
-
-        Status = StatusValueObject.Locked;
-
-        RaiseEvent(new UserStatusChangedEvent(Id, Email, Status));
-    }
-
-    public void Unlock()
+    
+    public void Activate()
     {
         if (!Status.IsLocked)
             return;
@@ -125,12 +106,12 @@ public sealed class UserAggregate : AggregateRoot<UserAggregate, IdentityValueOb
         RaiseEvent(new UserStatusChangedEvent(Id, Email, Status));
     }
 
-    public void Activate()
+    public void Deactivate()
     {
-        if (Status.IsActive)
+        if (Status.IsLocked)
             return;
 
-        Status = StatusValueObject.Active;
+        Status = StatusValueObject.Locked;
 
         RaiseEvent(new UserStatusChangedEvent(Id, Email, Status));
     }
