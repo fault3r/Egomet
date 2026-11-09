@@ -1,0 +1,24 @@
+
+using System;
+using Egomet.Core.Interfaces;
+
+namespace Egomet.Core.Messaging.Outbox;
+
+public interface IEventOutbox
+{
+    Task EnqueueAsync(
+        IEnumerable<IDomainEvent> events,
+        string correlationId,
+        CancellationToken cancellationToken
+    );
+
+    Task<IEnumerable<EventMessage>> DequeueAsync(
+        int count,
+        CancellationToken cancellationToken
+    );
+
+    Task MarkAsPublishedAsync(
+        Guid messageId,
+        CancellationToken cancellationToken
+    );
+}
