@@ -41,7 +41,9 @@ public sealed class UserAggregate : AggregateRoot<UserAggregate, IdentityValueOb
         IdentityValueObject id,
         EmailValueObject email,
         PasswordHashValueObject passwordHash,
-        FullNameValueObject fullName)
+        FullNameValueObject fullName,
+        RoleValueObject role,
+        StatusValueObject status)
     {
         ArgumentNullException.ThrowIfNull(id);
 
@@ -50,8 +52,8 @@ public sealed class UserAggregate : AggregateRoot<UserAggregate, IdentityValueOb
             email,
             passwordHash,
             fullName,
-            RoleValueObject.User,
-            StatusValueObject.Pending);
+            role,
+            status);
 
         user.RaiseEvent(
             new UserRegisteredEvent(user.Id, user.Email, user.FullName));
