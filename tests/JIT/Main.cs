@@ -1,6 +1,5 @@
 ﻿
 using System;
-using Egomet.Infrastructure.Common;
 
 namespace JIT;
 
