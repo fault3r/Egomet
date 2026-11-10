@@ -8,7 +8,7 @@ namespace Egomet.Core.Interfaces;
 
 public interface IUserDomainService
 {
-    Task<Result> VerifyCanCreateAsync(
+    Task<Result> VerifyAvailabilityAsync(
         EmailValueObject email,
         CancellationToken ct = default);
 

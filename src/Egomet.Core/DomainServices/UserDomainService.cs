@@ -25,7 +25,7 @@ public sealed class UserDomainService : IUserDomainService
         _passwordHasher = passwordHasher;
     }
 
-    public async Task<Result> VerifyCanCreateAsync(
+    public async Task<Result> VerifyAvailabilityAsync(
         EmailValueObject email,
         CancellationToken ct = default)
     {
