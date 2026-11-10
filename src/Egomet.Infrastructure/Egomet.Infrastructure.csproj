@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../Egomet.Application/Egomet.Application.csproj" />
+    <ProjectReference Include="../Egomet.Core/Egomet.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
