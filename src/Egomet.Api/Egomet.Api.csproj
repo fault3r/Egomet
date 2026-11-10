@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Egomet.Common/Egomet.Common.csproj" />
     <ProjectReference Include="../Egomet.Infrastructure/Egomet.Infrastructure.csproj" />
   </ItemGroup>
 

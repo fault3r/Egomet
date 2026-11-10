@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../../src/Egomet.Core/Egomet.Core.csproj" />
+    <ProjectReference Include="../../src/Egomet.Infrastructure/Egomet.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
