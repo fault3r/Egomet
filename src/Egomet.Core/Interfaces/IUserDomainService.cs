@@ -1,20 +1,19 @@
 
 using System;
 using Egomet.Core.Aggregates.UserAggregate;
+using Egomet.Core.Common;
 using Egomet.Core.ValueObjects;
 
 namespace Egomet.Core.Interfaces;
 
 public interface IUserDomainService
 {
-    Task<bool> VerifyCanCreateAsync(
+    Task<Result> VerifyCanCreateAsync(
         EmailValueObject email,
-        CancellationToken ct
-    );
+        CancellationToken ct = default);
 
-    Task<UserAggregate?> VerifyCredentialsAsync(
+    Task<Result<UserAggregate>> VerifyCredentialsAsync(
         EmailValueObject email,
-        PasswordHashValueObject passwordHash,
-        CancellationToken ct
-    );
+        string password,
+        CancellationToken ct = default);
 }
