@@ -7,7 +7,7 @@ namespace Egomet.Core.UnitOfWork;
 
 public interface IUnitOfWork
 {
-    Task<int> CommitAsync(CancellationToken ct);
+    Task<int> CommitAsync(CancellationToken cancellationToken);
     
     IEventOutbox EventOutbox { get; }
 

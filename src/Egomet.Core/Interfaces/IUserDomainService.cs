@@ -10,10 +10,10 @@ public interface IUserDomainService
 {
     Task<Result> VerifyAvailabilityAsync(
         EmailValueObject email,
-        CancellationToken ct = default);
+        CancellationToken cancellationToken = default);
 
     Task<Result<UserAggregate>> VerifyCredentialsAsync(
         EmailValueObject email,
         string password,
-        CancellationToken ct = default);
+        CancellationToken cancellationToken = default);
 }

@@ -7,12 +7,12 @@ namespace Egomet.Core.Repositories;
 
 public interface IUserRepository
 {
-    Task CreateAsync(UserAggregate user, CancellationToken ct);
+    Task CreateAsync(UserAggregate user, CancellationToken cancellationToken);
 
-    Task<UserAggregate?> GetByIdAsync(IdentityValueObject identity, CancellationToken ct);
-    Task<UserAggregate?> GetByEmailAsync(EmailValueObject email, CancellationToken ct);
+    Task<UserAggregate?> GetByIdAsync(IdentityValueObject identity, CancellationToken cancellationToken);
+    Task<UserAggregate?> GetByEmailAsync(EmailValueObject email, CancellationToken cancellationToken);
 
-    Task UpdateAsync(UserAggregate user, CancellationToken ct);
+    Task UpdateAsync(UserAggregate user, CancellationToken cancellationToken);
     
-    Task DeleteAsync(IdentityValueObject identity, CancellationToken ct);
+    Task DeleteAsync(IdentityValueObject identity, CancellationToken cancellationToken);
 }

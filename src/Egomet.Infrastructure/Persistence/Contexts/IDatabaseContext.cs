@@ -16,5 +16,5 @@ public interface IDatabaseContext
      ChangeTracker ChangeTracker { get; }
      DatabaseFacade Database { get; }
   
-     Task<int> SaveChangesAsync(CancellationToken ct);
+     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

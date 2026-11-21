@@ -27,11 +27,11 @@ public sealed class UserDomainService : IUserDomainService
 
     public async Task<Result> VerifyAvailabilityAsync(
         EmailValueObject email,
-        CancellationToken ct = default)
+        CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(email);
 
-        var user = await _userRepository.GetByEmailAsync(email, ct);
+        var user = await _userRepository.GetByEmailAsync(email, cancellationToken);
 
         return user is null
             ? Result.Success()
@@ -41,12 +41,12 @@ public sealed class UserDomainService : IUserDomainService
     public async Task<Result<UserAggregate>> VerifyCredentialsAsync(
         EmailValueObject email,
         string password,
-        CancellationToken ct = default)
+        CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(email);
         ArgumentException.ThrowIfNullOrWhiteSpace(password);
 
-        var user = await _userRepository.GetByEmailAsync(email, ct);
+        var user = await _userRepository.GetByEmailAsync(email, cancellationToken);
 
         if (user is null)
             return Result<UserAggregate>.Failure("Invalid email or password.");
