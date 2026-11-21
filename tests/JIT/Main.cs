@@ -9,6 +9,8 @@ public class JITTest
     public void MainTest()
     {
         Console.WriteLine("App started..");
+
+        
         Console.WriteLine("Everything is ended.");
     }
 }
