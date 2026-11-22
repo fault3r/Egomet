@@ -9,41 +9,48 @@ using Microsoft.EntityFrameworkCore;
 namespace Egomet.Infrastructure.Repositories;
 
 public sealed class UserRepository(
-    IDatabaseContext context
+    EfPostgresDbContext context
 ) : IUserRepository
 {
+    private readonly EfPostgresDbContext _context =
+        context ?? throw new ArgumentNullException(nameof(context));
+
     public async Task CreateAsync(
         UserAggregate user,
         CancellationToken cancellationToken)
     {
-        await context.Users.AddAsync(user, cancellationToken);
+        ArgumentNullException.ThrowIfNull(user);
+
+        await _context.Users.AddAsync(user, cancellationToken);
     }
 
     public async Task<UserAggregate?> GetByIdAsync(
         IdentityValueObject identity,
         CancellationToken cancellationToken)
     {
-        return await context.Users
-            .FirstOrDefaultAsync(
-                x => x.Id == identity,
-                cancellationToken);
+        ArgumentNullException.ThrowIfNull(identity);
+
+        return await _context.Users.FirstOrDefaultAsync(
+            x => x.Id == identity, cancellationToken);
     }
 
     public async Task<UserAggregate?> GetByEmailAsync(
         EmailValueObject email,
         CancellationToken cancellationToken)
     {
-        return await context.Users
-            .FirstOrDefaultAsync(
-                x => x.Email == email,
-                cancellationToken);
+        ArgumentNullException.ThrowIfNull(email);
+
+        return await _context.Users.FirstOrDefaultAsync(
+            x => x.Email == email, cancellationToken);
     }
 
     public Task UpdateAsync(
         UserAggregate user,
         CancellationToken cancellationToken)
     {
-        context.Users.Update(user);
+        ArgumentNullException.ThrowIfNull(user);
+
+        _context.Users.Update(user);
 
         return Task.CompletedTask;
     }
@@ -52,11 +59,12 @@ public sealed class UserRepository(
         IdentityValueObject identity,
         CancellationToken cancellationToken)
     {
-        var user = await GetByIdAsync(identity, cancellationToken);
+        ArgumentNullException.ThrowIfNull(identity);
 
-        if (user is null)
-            return;
+        var user = await GetByIdAsync(
+            identity, cancellationToken);
 
-        context.Users.Remove(user);
+        if (user is not null)
+            _context.Users.Remove(user);
     }
 }
