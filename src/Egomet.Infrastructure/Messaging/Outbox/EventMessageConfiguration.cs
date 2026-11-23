@@ -4,7 +4,7 @@ using Egomet.Core.Messaging.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Egomet.Infrastructure.Persistence.Configurations;
+namespace Egomet.Infrastructure.Messaging.Outbox;
 
 public sealed class EventMessageConfiguration
     : IEntityTypeConfiguration<EventMessage>
