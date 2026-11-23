@@ -6,19 +6,19 @@ namespace Egomet.Infrastructure.CrossCutting;
 
 public sealed class CorrelationContext : ICorrelationContext
 {
-    private static readonly AsyncLocal<string?> _correlationId = new();
+    private static readonly AsyncLocal<string?> _correlation = new();
 
-    public string? CorrelationId => _correlationId.Value;
+    public string? CorrelationId => _correlation.Value;
 
     public void Set(string correlationId)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(correlationId);
 
-        _correlationId.Value = correlationId.Trim();
+        _correlation.Value = correlationId.Trim();
     }
 
     public void Clear()
     {
-        _correlationId.Value = null;
+        _correlation.Value = null;
     }
 }

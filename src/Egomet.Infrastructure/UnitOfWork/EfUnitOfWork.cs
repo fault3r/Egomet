@@ -9,7 +9,7 @@ namespace Egomet.Infrastructure.UnitOfWork;
 
 public sealed class EfUnitOfWork : IUnitOfWork
 {
-    private readonly IDatabaseContext _dbContext;
+    private readonly IDatabaseContext _context;
 
     public IEventOutbox EventOutbox { get; }
     public IUserRepository UserRepository { get; }
@@ -23,14 +23,15 @@ public sealed class EfUnitOfWork : IUnitOfWork
         ArgumentNullException.ThrowIfNull(outbox);
         ArgumentNullException.ThrowIfNull(userRepository);
 
-        _dbContext = dbContext;
+        _context = dbContext;
         EventOutbox = outbox;
         UserRepository = userRepository;
     }
 
-    public Task<int> CommitAsync(
+    public async Task<int> CommitAsync(
         CancellationToken cancellationToken = default)
     {
-        return _dbContext.SaveChangesAsync(cancellationToken);
+        return await _context
+            .SaveChangesAsync(cancellationToken);
     }
 }
