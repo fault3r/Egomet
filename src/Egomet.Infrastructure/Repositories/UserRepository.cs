@@ -30,8 +30,8 @@ public sealed class UserRepository(
     {
         ArgumentNullException.ThrowIfNull(identity);
 
-        return await _context.Users.FirstOrDefaultAsync(
-            x => x.Id == identity, cancellationToken);
+        return await _context.Users
+            .FirstOrDefaultAsync(x => x.Id == identity, cancellationToken);
     }
 
     public async Task<UserAggregate?> GetByEmailAsync(
@@ -40,8 +40,8 @@ public sealed class UserRepository(
     {
         ArgumentNullException.ThrowIfNull(email);
 
-        return await _context.Users.FirstOrDefaultAsync(
-            x => x.Email == email, cancellationToken);
+        return await _context.Users
+            .FirstOrDefaultAsync(x => x.Email == email, cancellationToken);
     }
 
     public Task UpdateAsync(
@@ -61,8 +61,7 @@ public sealed class UserRepository(
     {
         ArgumentNullException.ThrowIfNull(identity);
 
-        var user = await GetByIdAsync(
-            identity, cancellationToken);
+        var user = await GetByIdAsync(identity, cancellationToken);
 
         if (user is not null)
             _context.Users.Remove(user);
