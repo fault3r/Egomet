@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore;
 namespace Egomet.Infrastructure.Repositories;
 
 public sealed class UserRepository(
-    EfPostgresDbContext context
+    IDatabaseContext context
 ) : IUserRepository
 {
-    private readonly EfPostgresDbContext _context =
+    private readonly IDatabaseContext _context =
         context ?? throw new ArgumentNullException(nameof(context));
 
     public async Task CreateAsync(
