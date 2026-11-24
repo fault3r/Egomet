@@ -46,14 +46,17 @@ public sealed class UserAggregate
         RoleValueObject role,
         StatusValueObject status)
     {
-        var user = new UserAggregate(id, email, passwordHash, fullName, role, status);
+        var user = new UserAggregate(
+            id, email, passwordHash, fullName, role, status);
 
-        user.RaiseEvent(new UserRegisteredEvent(user.Id, user.Email, user.FullName));
+        user.RaiseEvent(
+            new UserRegisteredEvent(user.Id, user.Email, user.FullName));
 
         return user;
     }
 
-    public void ChangePassword(PasswordHashValueObject newPasswordHash)
+    public void ChangePassword(
+        PasswordHashValueObject newPasswordHash)
     {
         ArgumentNullException.ThrowIfNull(newPasswordHash);
 
@@ -65,7 +68,8 @@ public sealed class UserAggregate
         RaiseEvent(new UserPasswordChangedEvent(Id, Email, FullName));
     }
 
-    public void ChangeFullName(FullNameValueObject newFullName)
+    public void ChangeFullName(
+        FullNameValueObject newFullName)
     {
         ArgumentNullException.ThrowIfNull(newFullName);
 
@@ -118,7 +122,9 @@ public sealed class UserAggregate
     }
 
     #region EF Core
-    public UserAggregate(IdentityValueObject id) : base(id)
+    public UserAggregate(
+        IdentityValueObject id)
+        : base(id)
     {
         Email = null!;
         PasswordHash = null!;

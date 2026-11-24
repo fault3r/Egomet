@@ -4,7 +4,8 @@ using Egomet.Core.Interfaces;
 
 namespace Egomet.Core.Abstraction;
 
-public abstract class ValueObject<T> : IValueObject, IEquatable<T>
+public abstract class ValueObject<T>
+    : IValueObject, IEquatable<T>
     where T : ValueObject<T>
 {
     protected abstract IEnumerable<object?> GetEqualityComponents();
@@ -34,7 +35,9 @@ public abstract class ValueObject<T> : IValueObject, IEquatable<T>
         return hash.ToHashCode();
     }
 
-    public static bool operator ==(ValueObject<T>? left, ValueObject<T>? right)
+    public static bool operator ==(
+        ValueObject<T>? left,
+        ValueObject<T>? right)
     {
         if (ReferenceEquals(left, right))
             return true;
@@ -45,7 +48,10 @@ public abstract class ValueObject<T> : IValueObject, IEquatable<T>
         return left.Equals(right as T);
     }
 
-    public static bool operator !=(ValueObject<T>? left, ValueObject<T>? right)
+    public static bool operator !=(
+        ValueObject<T>? left,
+        ValueObject<T>? right
+    )
         => !(left == right);
 }
 

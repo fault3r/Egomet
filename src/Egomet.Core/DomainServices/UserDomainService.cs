@@ -9,7 +9,8 @@ using Egomet.Core.ValueObjects;
 
 namespace Egomet.Core.DomainServices;
 
-public sealed class UserDomainService : IUserDomainService
+public sealed class UserDomainService
+    : IUserDomainService
 {
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
@@ -31,7 +32,8 @@ public sealed class UserDomainService : IUserDomainService
     {
         ArgumentNullException.ThrowIfNull(email);
 
-        var user = await _userRepository.GetByEmailAsync(email, cancellationToken);
+        var user = await _userRepository
+            .GetByEmailAsync(email, cancellationToken);
 
         return user is null
             ? Result.Success()
@@ -46,11 +48,13 @@ public sealed class UserDomainService : IUserDomainService
         ArgumentNullException.ThrowIfNull(email);
         ArgumentException.ThrowIfNullOrWhiteSpace(password);
 
-        var user = await _userRepository.GetByEmailAsync(email, cancellationToken);
+        var user = await _userRepository
+            .GetByEmailAsync(email, cancellationToken);
 
         if (user is null)
         {
-            _passwordHasher.Verify(password, _passwordHasher.DummyHash);   
+            _passwordHasher.Verify(password, _passwordHasher.DummyHash);
+
             return Result<UserAggregate>.Failure("Invalid email or password.");
         }
 

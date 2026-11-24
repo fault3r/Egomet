@@ -5,7 +5,8 @@ using Egomet.Core.ValueObjects;
 
 namespace Egomet.Core.Aggregates.UserAggregate.Events;
 
-public sealed record UserRoleChangedEvent : DomainEvent
+public sealed record UserRoleChangedEvent
+    : DomainEvent
 {
     public IdentityValueObject UserId { get; }
     public EmailValueObject Email { get; }

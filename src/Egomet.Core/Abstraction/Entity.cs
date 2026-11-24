@@ -4,7 +4,8 @@ using Egomet.Core.Interfaces;
 
 namespace Egomet.Core.Abstraction;
 
-public abstract class Entity<T, TId> : IEntity<TId>, IEquatable<T>
+public abstract class Entity<T, TId>
+    : IEntity<TId>, IEquatable<T>
     where T : Entity<T, TId>
 {
     public TId Id { get; }
@@ -30,13 +31,16 @@ public abstract class Entity<T, TId> : IEntity<TId>, IEquatable<T>
         if (other is null)
             return false;
 
-        return EqualityComparer<TId>.Default.Equals(Id, other.Id);
+        return EqualityComparer<TId>.Default
+            .Equals(Id, other.Id);
     }
 
     public override int GetHashCode()
         => HashCode.Combine(GetType(), Id);
 
-    public static bool operator ==(Entity<T, TId>? left, Entity<T, TId>? right)
+    public static bool operator ==(
+        Entity<T, TId>? left,
+        Entity<T, TId>? right)
     {
         if (ReferenceEquals(left, right))
             return true;
@@ -47,7 +51,10 @@ public abstract class Entity<T, TId> : IEntity<TId>, IEquatable<T>
         return left.Equals(right as T);
     }
 
-    public static bool operator !=(Entity<T, TId>? left, Entity<T, TId>? right)
+    public static bool operator !=(
+        Entity<T, TId>? left,
+        Entity<T, TId>? right
+    )
         => !(left == right);
 }
 

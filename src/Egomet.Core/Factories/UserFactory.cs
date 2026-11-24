@@ -34,6 +34,7 @@ public sealed class UserFactory
         RoleValueObject role,
         StatusValueObject status)
     {
-        return UserAggregate.Create(id, email, passwordHash, fullName, role, status);
+        return UserAggregate.Create(
+            id, email, passwordHash, fullName, role, status);
     }
 }

@@ -4,7 +4,8 @@ using Egomet.Core.Interfaces;
 
 namespace Egomet.Core.Abstraction;
 
-public abstract class AggregateRoot<T, TId>(TId id) : Entity<T, TId>(id), IAggregateRoot<TId>
+public abstract class AggregateRoot<T, TId>(TId id)
+    : Entity<T, TId>(id), IAggregateRoot<TId>
     where T : AggregateRoot<T, TId>
 {
     private readonly List<IDomainEvent> events = [];

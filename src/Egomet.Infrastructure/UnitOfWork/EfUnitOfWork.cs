@@ -7,7 +7,8 @@ using Egomet.Infrastructure.Persistence.Contexts;
 
 namespace Egomet.Infrastructure.UnitOfWork;
 
-public sealed class EfUnitOfWork : IUnitOfWork
+public sealed class EfUnitOfWork
+    : IUnitOfWork
 {
     private readonly IDatabaseContext _context;
 
