@@ -6,7 +6,8 @@ using Egomet.Core.ValueObjects;
 
 namespace Egomet.Core.Aggregates.UserAggregate;
 
-public sealed class UserAggregate : AggregateRoot<UserAggregate, IdentityValueObject>
+public sealed class UserAggregate
+    : AggregateRoot<UserAggregate, IdentityValueObject>
 {
     public EmailValueObject Email { get; private set; }
     public PasswordHashValueObject PasswordHash { get; private set; }
@@ -95,7 +96,7 @@ public sealed class UserAggregate : AggregateRoot<UserAggregate, IdentityValueOb
 
         RaiseEvent(new UserRoleChangedEvent(Id, Email, Role));
     }
-    
+
     public void Activate()
     {
         if (!Status.IsLocked)
