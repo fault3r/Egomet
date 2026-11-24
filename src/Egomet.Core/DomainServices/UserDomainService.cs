@@ -49,7 +49,10 @@ public sealed class UserDomainService : IUserDomainService
         var user = await _userRepository.GetByEmailAsync(email, cancellationToken);
 
         if (user is null)
+        {
+            _passwordHasher.Verify(password, _passwordHasher.DummyHash);   
             return Result<UserAggregate>.Failure("Invalid email or password.");
+        }
 
         var isPasswordValid = _passwordHasher.Verify(password, user.PasswordHash);
 

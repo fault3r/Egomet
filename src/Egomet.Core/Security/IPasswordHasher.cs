@@ -7,4 +7,6 @@ public interface IPasswordHasher
 {
     string Compute(string raw);
     bool Verify(string raw, string hash);
+    
+    string DummyHash { get; }
 }

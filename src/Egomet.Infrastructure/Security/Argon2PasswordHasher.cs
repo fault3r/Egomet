@@ -140,4 +140,11 @@ public sealed class Argon2PasswordHasher
             out value
         );
     }
+
+    public string DummyHash { get; }
+
+    public Argon2PasswordHasher()
+    {
+        DummyHash = Compute("Egomet.Infrastructure.Security.Dummy.Hash!");
+    }
 }
