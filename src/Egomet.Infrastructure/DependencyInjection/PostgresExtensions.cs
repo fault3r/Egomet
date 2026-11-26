@@ -1,11 +1,15 @@
 
 using System;
+using Egomet.Infrastructure.Exceptions;
+using Egomet.Infrastructure.Persistence.Contexts;
+using Egomet.Infrastructure.Settings;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Egomet.Infrastructure.DependencyInjection;
 
-public class PostgresExtensions
+public static class PostgresExtensions
 {
     public static IServiceCollection AddEfPostgresDbContext(
         this IServiceCollection services,
@@ -14,7 +18,7 @@ public class PostgresExtensions
         var settings = configuration
             .GetSection(nameof(PostgresSettings))
             .Get<PostgresSettings>()
-            ?? throw new MissingPostgresSettingsException();
+            ?? throw new InfrastructureException();
 
         var connectionString = settings.ToConnectionString();
 
