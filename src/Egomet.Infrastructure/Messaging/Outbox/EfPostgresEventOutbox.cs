@@ -12,8 +12,8 @@ public sealed class EfPostgresEventOutbox(
     IDatabaseContext dbContext
 ) : IEventOutbox
 {
-    private readonly IDatabaseContext _context =
-        dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+    private readonly IDatabaseContext _context = dbContext
+        ?? throw new ArgumentNullException(nameof(dbContext));
 
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
