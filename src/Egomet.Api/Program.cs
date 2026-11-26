@@ -9,7 +9,7 @@ var settings = builder.Configuration
     .GetSection(nameof(AppSettings))
     .Get<AppSettings>()
         ?? throw new InfrastructureException(
-            $"Missing {nameof(AppSettings)}.");
+            $"Missing or invalid configuration section '{nameof(AppSettings)}'.");
 
 var app = builder.Build();
 

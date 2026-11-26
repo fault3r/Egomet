@@ -18,7 +18,8 @@ public static class PostgresExtensions
         var settings = configuration
             .GetSection(nameof(PostgresSettings))
             .Get<PostgresSettings>()
-            ?? throw new InfrastructureException();
+            ?? throw new InfrastructureException(
+                $"Missing or invalid configuration section '{nameof(PostgresSettings)}'.");
 
         var connectionString = settings.ToConnectionString();
 
@@ -33,7 +34,8 @@ public static class PostgresExtensions
 
                     postgres.EnableRetryOnFailure(
                         maxRetryCount: 3,
-                        maxRetryDelay: TimeSpan.FromSeconds(5));
+                        maxRetryDelay: TimeSpan.FromSeconds(5),
+                        errorCodesToAdd: null);
                 });
         });
 
