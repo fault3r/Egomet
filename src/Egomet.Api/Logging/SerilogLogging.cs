@@ -13,9 +13,18 @@ public static class SerilogLogging
         host.UseSerilog((context, config) =>
         {
             var filename = context.Configuration
-                .GetValue<string>($"Logging:SerilogSettings:Filename")
+                .GetValue<string>("Logging:SerilogSettings:Filename")
                     ?? throw new InvalidOperationException(
-                        $"Missing configuration section: Logging:SerilogSettings");
+                        $"Missing configuration section: Logging:SerilogSettings:Filename");
+
+            if (string.IsNullOrWhiteSpace(filename))
+                throw new InvalidOperationException(
+                    "Logging:SerilogSettings:Filename cannot be null or empty.");
+
+            var logDirectory = Path.Combine(
+                AppContext.BaseDirectory, "Logs");
+
+            Directory.CreateDirectory(logDirectory);
 
             config
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Error)
@@ -23,18 +32,12 @@ public static class SerilogLogging
                 .MinimumLevel.Verbose()
                 .Enrich.FromLogContext()
                 .WriteTo.File(
-                    path: Path.Combine("Logs", filename),
+                    path: logDirectory,
                     rollingInterval: RollingInterval.Hour,
-                    outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] {SourceContext} {CorrelationId} {Message:lj} {NewLine} {Exception}"
+                    outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] "
+                        + "{SourceContext} {CorrelationId} {Message:lj} {NewLine} {Exception}"
                 );
-        })
-            .ConfigureServices((_, services) =>
-            {
-                services.AddLogging(config =>
-                {
-                    config.AddSerilog();
-                });
-            });
+        });
 
         return host;
     }
