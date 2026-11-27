@@ -23,14 +23,14 @@ public static class PostgresExtensions
 
         var connectionString = settings.ToConnectionString();
 
-        services.AddDbContext<EfPostgresDbContext>(options =>
+        services.AddDbContext<PostgresDbContext>(options =>
         {
             options.UseNpgsql(
                 connectionString,
                 postgres =>
                 {
                     postgres.MigrationsAssembly(
-                        typeof(EfPostgresDbContext).Assembly.FullName);
+                        typeof(PostgresDbContext).Assembly.FullName);
 
                     postgres.EnableRetryOnFailure(
                         maxRetryCount: 3,
@@ -40,7 +40,7 @@ public static class PostgresExtensions
         });
 
         services.AddScoped<IDatabaseContext>(
-            provider => provider.GetRequiredService<EfPostgresDbContext>());
+            provider => provider.GetRequiredService<PostgresDbContext>());
 
         return services;
     }

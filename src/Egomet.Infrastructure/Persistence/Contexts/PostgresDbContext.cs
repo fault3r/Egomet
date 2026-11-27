@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Egomet.Infrastructure.Persistence.Contexts;
 
-public sealed class EfPostgresDbContext(
-    DbContextOptions<EfPostgresDbContext> options
+public sealed class PostgresDbContext(
+    DbContextOptions<PostgresDbContext> options
 ) : DbContext(options), IDatabaseContext
 {
     public DbSet<UserAggregate> Users => Set<UserAggregate>();
@@ -18,6 +18,6 @@ public sealed class EfPostgresDbContext(
         base.OnModelCreating(builder);
 
         builder.ApplyConfigurationsFromAssembly(
-            typeof(EfPostgresDbContext).Assembly);
+            typeof(PostgresDbContext).Assembly);
     }
 }
