@@ -1,5 +1,6 @@
 
 using System;
+using System.IO;
 using Serilog;
 using Serilog.Events;
 
@@ -13,16 +14,15 @@ public static class SerilogLogging
         host.UseSerilog((context, config) =>
         {
             var filename = context.Configuration
-                .GetValue<string>("Logging:SerilogSettings:Filename")
-                    ?? throw new InvalidOperationException(
-                        $"Missing configuration section: Logging:SerilogSettings:Filename");
+                .GetValue<string>("Logging:SerilogSettings:Filename");
 
             if (string.IsNullOrWhiteSpace(filename))
                 throw new InvalidOperationException(
-                    "Logging:SerilogSettings:Filename cannot be null or empty.");
+                    "Logging:SerilogSettings:Filename is missing or empty.");
 
             var logDirectory = Path.Combine(
-                AppContext.BaseDirectory, "Logs");
+                context.HostingEnvironment.ContentRootPath,
+                "Logs");
 
             Directory.CreateDirectory(logDirectory);
 
@@ -32,10 +32,11 @@ public static class SerilogLogging
                 .MinimumLevel.Verbose()
                 .Enrich.FromLogContext()
                 .WriteTo.File(
-                    path: logDirectory,
+                    path: Path.Combine(logDirectory, filename),
                     rollingInterval: RollingInterval.Hour,
-                    outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] "
-                        + "{SourceContext} {CorrelationId} {Message:lj} {NewLine} {Exception}"
+                    outputTemplate:
+                        "[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] " +
+                        "{SourceContext} {CorrelationId} {Message:lj} {NewLine}{Exception}"
                 );
         });
 
